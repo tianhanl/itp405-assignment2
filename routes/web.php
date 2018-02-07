@@ -17,3 +17,5 @@ Route::get('/invoices', 'InvoicesController@index');
 Route::get('/invoices/{id}', 'InvoicesController@show');
 Route::get('/genres', 'GenresController@index');
 Route::get('/tracks', 'TracksController@index');
+Route::get('/playlists', 'PlaylistsController@index');
+Route::get('/playlists/{id}', 'PlaylistsController@show');
