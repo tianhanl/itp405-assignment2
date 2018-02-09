@@ -18,4 +18,8 @@ Route::get('/invoices/{id}', 'InvoicesController@show');
 Route::get('/genres', 'GenresController@index');
 Route::get('/tracks', 'TracksController@index');
 Route::get('/playlists', 'PlaylistsController@index');
+Route::get('/playlists/new', 'PlaylistsController@create');
+Route::get('/playlists/{id}/edit', 'PlaylistsController@edit');
 Route::get('/playlists/{id}', 'PlaylistsController@show');
+Route::post('/playlists/{id}', 'PlaylistsController@update');
+Route::post('/playlists', 'PlaylistsController@store');

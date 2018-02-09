@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Validator;
 
 class PlaylistsController extends Controller
 {
@@ -29,6 +30,7 @@ class PlaylistsController extends Controller
     public function create()
     {
         //
+        return view('create-playlist');
     }
 
     /**
@@ -39,7 +41,22 @@ class PlaylistsController extends Controller
      */
     public function store(Request $request)
     {
-        //t 
+        $validation = Validator::make([
+            'playlistName' => $request->input('playlist')
+        ], [
+            'playlistName' => 'required|min:3'
+        ]);
+        if ($validation->passes()) {
+            DB::table('playlists')->insert([
+                'Name' => $request->input('playlist')
+            ]);
+            return redirect('/playlists');
+        } else {
+            return redirect('/playlists/new')
+                ->withInput()
+                ->withErrors($validation);
+        }
+
     }
 
     /**
@@ -76,6 +93,12 @@ class PlaylistsController extends Controller
     public function edit($id)
     {
         //
+        $playlist = DB::table('playlists')
+            ->where('PlaylistId', '=', $id)
+            ->first();
+        return view('edit-playlist', [
+            'playlist' => $playlist
+        ]);
     }
 
     /**
@@ -88,6 +111,21 @@ class PlaylistsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $validation = Validator::make([
+            'playlistName' => $request->input('playlist')
+        ], [
+            'playlistName' => 'required|min:3'
+        ]);
+        if ($validation->passes()) {
+            DB::table('playlists')
+                ->where('PlaylistId', '=', $id)
+                ->update(['Name' => $request->input('playlist')]);
+            return redirect('/playlists');
+        } else {
+            return redirect("/playlists/{$id}/edit")
+                ->withInput()
+                ->withErrors($validation);
+        }
     }
 
     /**

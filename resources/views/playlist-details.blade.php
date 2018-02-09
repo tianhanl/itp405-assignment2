@@ -1,5 +1,5 @@
 @extends('main-layout') 
-@section('title','Playlist: '.$playlist->Name) 
+@section('title','Playlist: ' . $playlist->Name) 
 @section('content')
 <h1>
     {{$playlist->Name}}
