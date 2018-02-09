@@ -137,5 +137,9 @@ class PlaylistsController extends Controller
     public function destroy($id)
     {
         //
+        DB::table('playlists')
+            ->where('PlaylistId', '=', $id)
+            ->delete();
+        return redirect('/playlists');
     }
 }

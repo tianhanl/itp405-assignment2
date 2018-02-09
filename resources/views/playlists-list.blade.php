@@ -9,6 +9,7 @@
                 {{$playlist->Name}}
             </a>
         <a href="/playlists/{{$playlist->PlaylistId}}/edit">Edit</a>
+        <a href="/playlists/{{$playlist->PlaylistId}}/delete">delete</a>
     </li>
     @endforeach
 </ul>
