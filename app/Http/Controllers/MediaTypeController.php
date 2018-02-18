@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\MediaType;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-use App\Track;
-
-class TracksController extends Controller
+class MediaTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,20 +14,7 @@ class TracksController extends Controller
      */
     public function index()
     {
-        //track name
-        // album title
-        //     artist name
-        //     price
-        if (request()->has('genre')) {
-            $genreId = request()->query('genre');
-            $tracks = Track::where('GenreId', $genreId)->get();
-        } else {
-            $tracks = Track::take(100)->get();
-        }
-
-        return view('tracks', [
-            'tracks' => $tracks
-        ]);
+        //
     }
 
     /**
@@ -56,10 +41,10 @@ class TracksController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\MediaType  $mediaType
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(MediaType $mediaType)
     {
         //
     }
@@ -67,10 +52,10 @@ class TracksController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\MediaType  $mediaType
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(MediaType $mediaType)
     {
         //
     }
@@ -79,10 +64,10 @@ class TracksController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\MediaType  $mediaType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, MediaType $mediaType)
     {
         //
     }
@@ -90,10 +75,10 @@ class TracksController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\MediaType  $mediaType
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(MediaType $mediaType)
     {
         //
     }

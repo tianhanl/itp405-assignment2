@@ -13,15 +13,17 @@
             <th>Album Title</th>
             <th>Artist Name</th>
             <th>Price</th>
+            <th>Media Type</th>
         </tr>
         @foreach($tracks as $track)
         <tr>
-            <td>{{$track->trackName}}</td>
-            <td>{{$track->title}}</td>
-            <td>{{$track->artistName}}</td>
+            <td>{{$track->Name}}</td>
+            <td>{{$track->Album->Title}}</td>
+            <td>{{$track->Album->Artist->Name}}</td>
             <td>
                 {{$track->UnitPrice}}
             </td>
+            <td>{{$track->MediaType->Name}}</td>
         </tr>
         @endforeach
     </table>
