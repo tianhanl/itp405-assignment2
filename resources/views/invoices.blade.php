@@ -7,7 +7,7 @@
     <title>Invoices</title>
 </head>
 <body>
-    <table class="table" >
+    <table class="table">
         <tr>
             <th>Date</th>
             <th>Last Name</th>
@@ -22,7 +22,7 @@
                 <a href="/invoices/{{$invoice->InvoiceId}}">Details</a>
             </td>
         </tr>
+        @endforeach
     </table>
-    
 </body>
 </html>

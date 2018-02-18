@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Validator;
+use App\Playlist;
 
 class PlaylistsController extends Controller
 {
@@ -16,7 +17,7 @@ class PlaylistsController extends Controller
     public function index()
     {
         //
-        $playlists = DB::table('playlists')->get();
+        $playlists = Playlist::all();
         return view('playlists-list', [
             'playlists' => $playlists
         ]);
@@ -47,9 +48,12 @@ class PlaylistsController extends Controller
             'playlistName' => 'required|min:3'
         ]);
         if ($validation->passes()) {
-            DB::table('playlists')->insert([
-                'Name' => $request->input('playlist')
-            ]);
+            // DB::table('playlists')->insert([
+            //     'Name' => $request->input('playlist')
+            // ]);
+            $playlist = new Playlist();
+            $playlist->Name = $request->input('playlist');
+            $playlist->save();
             return redirect('/playlists');
         } else {
             return redirect('/playlists/new')
@@ -68,9 +72,7 @@ class PlaylistsController extends Controller
     public function show($id)
     {
         //
-        $playlist = DB::table('playlists')
-            ->where('PlaylistId', '=', $id)
-            ->first();
+        $playlist = Playlist::find($id);
 
         $tracks = DB::table('playlist_track')
             ->join('tracks', 'tracks.TrackId', '=', 'playlist_track.TrackId')
@@ -93,9 +95,7 @@ class PlaylistsController extends Controller
     public function edit($id)
     {
         //
-        $playlist = DB::table('playlists')
-            ->where('PlaylistId', '=', $id)
-            ->first();
+        $playlist = Playlist::find($id);
         return view('edit-playlist', [
             'playlist' => $playlist
         ]);
@@ -117,9 +117,9 @@ class PlaylistsController extends Controller
             'playlistName' => 'required|min:3'
         ]);
         if ($validation->passes()) {
-            DB::table('playlists')
-                ->where('PlaylistId', '=', $id)
-                ->update(['Name' => $request->input('playlist')]);
+            $playlist = Playlist::find($id);
+            $playlist->Name = $request->input('playlist');
+            $playlist->save();
             return redirect('/playlists');
         } else {
             return redirect("/playlists/{$id}/edit")
@@ -137,9 +137,8 @@ class PlaylistsController extends Controller
     public function destroy($id)
     {
         //
-        DB::table('playlists')
-            ->where('PlaylistId', '=', $id)
-            ->delete();
+        $playlist = Playlist::find($id);
+        $playlist->delete();
         return redirect('/playlists');
     }
 }

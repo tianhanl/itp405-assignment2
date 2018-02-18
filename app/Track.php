@@ -8,4 +8,10 @@ class Track extends Model
 {
     //
     protected $primaryKey = 'TrackId';
+    public $timestamps = false;
+
+    public function Album()
+    {
+        return $this->belongsTo('App\Album', 'AlbumId');
+    }
 }
