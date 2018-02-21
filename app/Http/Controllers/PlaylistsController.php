@@ -74,10 +74,7 @@ class PlaylistsController extends Controller
         //
         $playlist = Playlist::find($id);
 
-        $tracks = DB::table('playlist_track')
-            ->join('tracks', 'tracks.TrackId', '=', 'playlist_track.TrackId')
-            ->where('PlaylistId', '=', $id)
-            ->get();
+        $tracks = $playlist->Tracks;
 
 
         return view('playlist-details', [
