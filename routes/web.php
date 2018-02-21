@@ -16,7 +16,7 @@ use Illuminate\Database\Console\Migrations\RollbackCommand;
 Route::get('/', function () {
     return redirect('/login');
 });
-
+Route::get('/maintenance', 'MaintenanceController@index');
 Route::get('/signup', 'SignupController@index');
 Route::post('/signup', 'SignupController@signup');
 Route::get('/login', 'LoginController@index');
@@ -35,3 +35,13 @@ Route::middleware(['protected'])->group(function () {
         echo phpinfo();
     });
 });
+
+Route::middleware(['maintenance'])->group(function () {
+    Route::get('/signup', 'SignupController@index');
+    Route::post('/signup', 'SignupController@signup');
+    Route::get('/playlists', 'PlaylistsController@index');
+    Route::get('/playlists/new', 'PlaylistsController@create');
+    Route::get('/playlists/{id}', 'PlaylistsController@show');
+    Route::post('/playlists', 'PlaylistsController@store');
+});
+
