@@ -25,12 +25,15 @@ Route::get('/logout', 'LoginController@logout');
 Route::get('/playlists', 'PlaylistsController@index');
 Route::get('/playlists/new', 'PlaylistsController@create');
 Route::get('/playlists/{id}', 'PlaylistsController@show');
+Route::get('/settings', 'SettingsController@index');
+Route::post('/settings/{id}', 'SettingsController@update');
 Route::post('/playlists', 'PlaylistsController@store');
 
 Route::middleware(['protected'])->group(function () {
     Route::get('/profile', 'AdminController@index');
     Route::get('/invoices', 'InvoicesController@index');
     Route::get('/invoices/{id}', 'InvoicesController@show');
+    Route::get('/settings', 'SettingsController@index');
     Route::get('/phpinfo', function () {
         echo phpinfo();
     });
