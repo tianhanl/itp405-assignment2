@@ -8,6 +8,23 @@
 </head>
 <body>
     <div class="container">
+        <ul class="nav">
+            @if (Auth::check())
+            <li class="nav-item">
+                <a href="/profile" class="nav-link">My profile</a>
+            </li>
+            <li class="nav-item">
+                <a href="/logout" class="nav-link">Logout</a>
+            </li>
+            @else
+            <li class="nav-item">
+                <a href="/login" class="nav-link">My profile</a>
+            </li>
+            <li class="nav-item">
+                <a href="/signup" class="nav-link">Logout</a>
+            </li>
+            @endif
+        </ul>
         @yield('content')
     </div>
 </body>
