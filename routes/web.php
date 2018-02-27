@@ -14,7 +14,7 @@ use Illuminate\Database\Console\Migrations\RollbackCommand;
  */
 
 Route::get('/', function () {
-    return redirect('/login');
+    return redirect('/genres');
 });
 Route::get('/maintenance', 'MaintenanceController@index');
 Route::get('/signup', 'SignupController@index');
@@ -28,7 +28,7 @@ Route::get('/playlists/{id}', 'PlaylistsController@show');
 Route::get('/settings', 'SettingsController@index');
 Route::post('/settings/{id}', 'SettingsController@update');
 Route::post('/playlists', 'PlaylistsController@store');
-
+Route::get('/genres', 'GenresController@index');
 Route::middleware(['protected'])->group(function () {
     Route::get('/profile', 'AdminController@index');
     Route::get('/invoices', 'InvoicesController@index');
@@ -46,5 +46,6 @@ Route::middleware(['maintenance'])->group(function () {
     Route::get('/playlists/new', 'PlaylistsController@create');
     Route::get('/playlists/{id}', 'PlaylistsController@show');
     Route::post('/playlists', 'PlaylistsController@store');
+    Route::get('/genres', 'GenresController@index');
 });
 
