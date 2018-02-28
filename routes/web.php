@@ -29,10 +29,12 @@ Route::get('/settings', 'SettingsController@index');
 Route::post('/settings/{id}', 'SettingsController@update');
 Route::post('/playlists', 'PlaylistsController@store');
 Route::get('/genres', 'GenresController@index');
-Route::get('/artists/{id}/albums', 'ArtistsController@album');
-Route::get('/artists/{id}/reviews', 'ArtistsController@review');
-Route::get('/artists/{id}/reviews/new', 'ArtistsController@create');
+Route::get('/artists/{id}/albums', 'ArtistsController@show');
 Route::get('/artists', 'ArtistsController@index');
+Route::get('/albums/{id}/reviews/new', 'AlbumsController@createReview');
+Route::get('/albums/{id}/reviews', 'AlbumsController@show');
+Route::post('/albums/{id}/reviews', 'AlbumsController@store');
+
 Route::middleware(['protected'])->group(function () {
     Route::get('/profile', 'AdminController@index');
     Route::get('/invoices', 'InvoicesController@index');

@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class ArtistsController extends Controller
+class ReviewsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +14,6 @@ class ArtistsController extends Controller
     public function index()
     {
         //
-        $artists = DB::table('artists')->get();
-        return view('artists', [
-            'artists' => $artists
-        ]);
     }
 
     /**
@@ -51,15 +46,10 @@ class ArtistsController extends Controller
     public function show($id)
     {
         //
-        $albums = DB::table('albums')
-            ->where('ArtistId', '=', $id)->get();
-        return view('artist-album', [
-            'albums' => $albums
-        ]);
     }
 
     /**
-     * Show the form for editing the specified resorce.
+     * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
