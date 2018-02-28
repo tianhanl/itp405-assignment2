@@ -7,6 +7,9 @@
         <a href="/artists/{{$artist->ArtistId}}">
                 {{$artist->Name}}
             </a>
+        <a href="/artists/{{$artist->ArtistId}}/albums">
+                Albums
+            </a>
     </li>
     @endforeach
 </ul>
