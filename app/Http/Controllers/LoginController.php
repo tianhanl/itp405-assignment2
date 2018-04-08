@@ -90,11 +90,14 @@ class LoginController extends Controller
     public function handleGitHubCallback()
     {
         $user = Socialite::driver('github')->user();
-        $localUser = new User();
-        $localUser->name = $user->getName();
-        $localUser->email = $user->getEmail();
-        $localUser->password = Hash::make('AVL Tree');
-        $localUser->save();
+        $localUser = User::where('email', '=', $user->getEmail())->first();
+        if (!$localUser) {
+            $localUser = new User();
+            $localUser->name = $user->getName();
+            $localUser->email = $user->getEmail();
+            $localUser->password = Hash::make('AVL Tree');
+            $localUser->save();
+        }
         $loginWasSuccessful = Auth::attempt([
             'email' => $user->getEmail(),
             'password' => 'AVL Tree'
