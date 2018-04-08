@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Foundation\Auth\User;
+use Laravel\Socialite\Facades\Socialite;
+use Hash;
 
 class LoginController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * 
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -39,11 +42,62 @@ class LoginController extends Controller
         //
     }
 
+
+
     public function login()
     {
         $loginWasSuccessful = Auth::attempt([
             'email' => request('email'),
             'password' => request('password')
+        ]);
+
+        if ($loginWasSuccessful) {
+            return redirect('/profile');
+        } else {
+            return redirect('/login');
+        }
+    }
+
+    public function redirectToTwitter()
+    {
+        return Socialite::driver('twitter')->redirect();
+    }
+
+    public function handleTwitterCallback()
+    {
+        $twitterUser = Socialite::driver('twitter')->user();
+        $user = User::where('email', '=', $twitterUser->getEmail())->first();
+
+        if (!$user) {
+            $user = new User();
+            $user->name = $twitterUser->getName();
+            $user->email = $twitterUser->getEmail();
+        }
+
+        $user->twitter_token = $twitterUser->token;
+        $user->twitter_token_secret = $twitterUser->tokenSecret;
+        $user->save();
+
+        Auth::login($user);
+        return redirect('/profile');
+    }
+
+    public function redirectToGitHub()
+    {
+        return Socialite::driver('github')->redirect();
+    }
+
+    public function handleGitHubCallback()
+    {
+        $user = Socialite::driver('github')->user();
+        $localUser = new User();
+        $localUser->name = $user->getName();
+        $localUser->email = $user->getEmail();
+        $localUser->password = Hash::make('AVL Tree');
+        $localUser->save();
+        $loginWasSuccessful = Auth::attempt([
+            'email' => $user->getEmail(),
+            'password' => 'AVL Tree'
         ]);
 
         if ($loginWasSuccessful) {

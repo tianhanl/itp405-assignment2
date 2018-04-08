@@ -15,4 +15,8 @@
     </div>
     <input type="submit" value="Login" class="btn btn-primary">
 </form>
+<div>
+    <a href="/login/twitter">Login with Twitter</a>
+    <a href="/login/github">Login with GitHub</a>
+</div>
 @endsection
